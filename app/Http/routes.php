@@ -12,9 +12,10 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('pages.home');
 });
 
+Route::resource('flyers', 'FlyersController');
 /*
 |--------------------------------------------------------------------------
 | Application Routes
