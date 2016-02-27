@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\Flyer;
 use App\Http\Requests;
+use App\Http\Requests\FlyerRequest;
 use App\Http\Controllers\Controller;
 use App\Http\Utilities\Country as Country;
 
@@ -37,13 +39,16 @@ class FlyersController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(FlyerRequest $request)
     {
-        // Validate the form
 
         // Persist the flyer
+        Flyer::create($request->all());
+
+        // Flash messaging
 
         // Redirect to landing page
+        return redirect()->back(); //temporary
     }
 
     /**
