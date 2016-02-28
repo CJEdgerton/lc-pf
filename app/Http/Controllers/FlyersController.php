@@ -30,6 +30,7 @@ class FlyersController extends Controller
     public function create(Country $country)
     {
         $countries = $country::all();
+
         return view('flyers.create')->with(compact('countries'));
     }
 
@@ -41,11 +42,11 @@ class FlyersController extends Controller
      */
     public function store(FlyerRequest $request)
     {
-
         // Persist the flyer
         Flyer::create($request->all());
 
-        // Flash messaging
+        // Flash a success message
+        flash()->success('Flyer Saved.', 'Your flyer has been created.');
 
         // Redirect to landing page
         return redirect()->back(); //temporary

@@ -9,7 +9,7 @@
 	name="street" 
 	id="street" 
 	class="form-control" 
-	value="" 
+	value="{{ old('street') }}" 
 	placeholder="Street">
 </div>
 
@@ -22,7 +22,7 @@
 	name="city" 
 	id="city" 
 	class="form-control" 
-	value=""
+	value="{{ old('city') }}"
 	placeholder="City">
 </div>
 
@@ -35,7 +35,7 @@
 	name="zip" 
 	id="zip" 
 	class="form-control" 
-	value="" 
+	value="{{ old('zip') }}" 
 	placeholder="Zip">
 </div>
 
@@ -65,7 +65,7 @@
 	name="state" 
 	id="state" 
 	class="form-control" 
-	value=""
+	value="{{ old('state') }}"
 	placeholder="State">
 </div>
 
@@ -80,7 +80,7 @@
 	name="price" 
 	id="price" 
 	class="form-control" 
-	value=""
+	value="{{ old('price') }}"
 	placeholder="Sale Price">
 </div>
 
@@ -92,7 +92,7 @@
 	name="description" 
 	id="description" 
 	class="form-control" 
-	rows="10"></textarea>
+	rows="10">{{ old('description') }}</textarea>
 </div>
 
 <div class="form-group">
