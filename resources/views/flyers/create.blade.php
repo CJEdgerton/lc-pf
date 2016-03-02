@@ -6,7 +6,7 @@
 		<form 
 			type="multipart/form-data" 
 			method="POST" 
-			action="/flyers"
+			action="{{ route('flyers.store') }}"
 			class="col-md-6">
 
 			@include('flyers.form')

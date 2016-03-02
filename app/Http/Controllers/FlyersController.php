@@ -8,14 +8,18 @@ use App\Flyer;
 use App\Photo;
 use App\Http\Requests;
 use App\Http\Requests\FlyerRequest;
+use App\Http\Requests\ChangeFlyerRequest;
 use App\Http\Controllers\Controller;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use App\Http\Utilities\Country as Country;
 
 class FlyersController extends Controller
 {
 
     public function __construct() {
-        $this->middleware('auth');
+        $this->middleware('auth', ['except' => ['show']]);
+
+        parent::__construct();
     }
     /**
      * Display a listing of the resource.
@@ -47,7 +51,7 @@ class FlyersController extends Controller
      */
     public function store(FlyerRequest $request)
     {
-        dd($request);
+        // dd($request);
         // Persist the flyer
         Flyer::create($request->all());
 
@@ -106,17 +110,35 @@ class FlyersController extends Controller
         //
     }
 
-    public function addPhoto($zip, $street, Request $request) {
+    public function addPhoto($zip, $street, ChangeFlyerRequest $request) {
 
-        $this->validate($request, [
-            'photo' => 'required|mimes:jpg,jpeg,png,bmp'
-        ]);
-
-        $photo = Photo::fromForm($request->file('photo'));
+        $photo = $this->makePhoto($request->file('photo'));
 
         Flyer::locatedAt($zip, $street)->addPhoto($photo);
-
-        return 'Done';
+        
     }
+
+    protected function unauthorized(Request $request) {
+
+        if($request->ajax()) {
+            
+            return response([
+                'message' => 'You are unauthorized to make the requested changes.'
+            ], 403);
+
+        } else {
+            flash('You are unauthorized to make the requested changes.');
+
+            return redirect('/');
+        }
+
+    }
+
+    protected function makePhoto(UploadedFile $file) {
+
+        return Photo::named($file->getClientOriginalName())->move($file);
+
+    }
+
 
 }
