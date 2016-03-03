@@ -1,10 +1,10 @@
 <?php
 
-Route::get('/', 'PagesController@home'); 
 
 Route::group(['middleware' => ['web']], function () {
     Route::auth();
 
+	Route::get('/', 'PagesController@home'); 
 	Route::resource('flyers', 'FlyersController');
 	Route::get('{zip}/{street}', 'FlyersController@show');
 	Route::post(

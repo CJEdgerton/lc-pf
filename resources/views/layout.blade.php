@@ -21,14 +21,26 @@
 			</div>
 			<div id="navbar" class="collapse navbar-collapse">
 				<ul class="nav navbar-nav">
-					<li class="active"><a href="#">Home</a></li>
-					<li><a href="#about">About</a></li>
-					<li><a href="#contact">Contact</a></li>
+					<li class="active"><a href="/">Home</a></li>
+					<li>
+						<a href="{{ route('flyers.index') }}">
+							Show Flyers
+						</a>
+					</li>
+					<li>
+						<a href="{{ route('flyers.create') }}">
+							Create Flyer
+						</a>
+					</li>
 				</ul>
 
 				@if( $signedIn )
 					<p class="navbar-text navbar-right">
 					Hello, {{ $user->name }}
+					</p>
+				@else
+					<p class="navbar-text navbar-right">
+						<a href="/register">Register</a>
 					</p>
 				@endif
 			</div><!--/.nav-collapse -->

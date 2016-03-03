@@ -28,7 +28,9 @@ class FlyersController extends Controller
      */
     public function index()
     {
-        //
+        $flyers = Flyer::all();
+
+        return view('flyers.index')->with(compact('flyers'));
     }
 
     /**
@@ -115,7 +117,7 @@ class FlyersController extends Controller
         $photo = $this->makePhoto($request->file('photo'));
 
         Flyer::locatedAt($zip, $street)->addPhoto($photo);
-        
+
     }
 
     protected function unauthorized(Request $request) {
