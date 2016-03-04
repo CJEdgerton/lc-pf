@@ -50,6 +50,7 @@
 		@yield('content')
 	</div>
 
+	<script src="//code.jquery.com/jquery-2.2.1.min.js"></script>
 	<script src="/js/libs.js"></script>
 	@include('flash')
 	@yield('scripts.footer')
