@@ -46,7 +46,4 @@ class Flyer extends Model
 		return $this->user_id == $user->id;
 	}
 
-	public function path() {
-		return $this->zip . '/' . str_replace(' ', '-', $this->street);
-	}
 }

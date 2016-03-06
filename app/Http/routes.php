@@ -11,7 +11,7 @@ Route::group(['middleware' => ['web']], function () {
 		'{zip}/{street}/photos', 
 		[
 			'as'   =>'store_photo_path', 
-			'uses' =>'FlyersController@addPhoto'
+			'uses' =>'PhotosController@store'
 		]
 	);
 });

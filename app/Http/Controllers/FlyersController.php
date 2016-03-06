@@ -5,10 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Flyer;
-use App\Photo;
 use App\Http\Requests;
 use App\Http\Requests\FlyerRequest;
-use App\Http\Requests\AddPhotoRequest;
 use App\Http\Controllers\Controller;
 use App\Http\Utilities\Country as Country;
 
@@ -53,11 +51,6 @@ class FlyersController extends Controller
     public function store(FlyerRequest $request)
     {
         // Persist the flyer
-        $yourMom = new Flyer($request->all());
-
-        // dd($this->user);
-        // dd($yourMom);
-
         $flyer = $this->user->publish( 
             new Flyer($request->all()) 
         );
@@ -66,7 +59,7 @@ class FlyersController extends Controller
         flash()->success('Flyer Saved.', 'Your flyer has been created.');
 
         // Redirect to landing page
-        return redirect($flyer->path());
+        return redirect(flyer_path($flyer));
     }
 
     /**
@@ -115,17 +108,6 @@ class FlyersController extends Controller
     public function destroy($id)
     {
         //
-    }
-
-    public function addPhoto($zip, $street, AddPhotoRequest $request) {
-
-        $photo = Photo::fromFile($request->file('photo'));
-
-        Flyer::locatedAt($zip, $street)->addPhoto($photo);
-
-        // $photo = $this->makePhoto($request->file('photo'));
-
-
     }
 
     protected function unauthorized(Request $request) {
