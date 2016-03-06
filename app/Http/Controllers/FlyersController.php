@@ -8,9 +8,8 @@ use App\Flyer;
 use App\Photo;
 use App\Http\Requests;
 use App\Http\Requests\FlyerRequest;
-use App\Http\Requests\ChangeFlyerRequest;
+use App\Http\Requests\AddPhotoRequest;
 use App\Http\Controllers\Controller;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
 use App\Http\Utilities\Country as Country;
 
 class FlyersController extends Controller
@@ -53,15 +52,21 @@ class FlyersController extends Controller
      */
     public function store(FlyerRequest $request)
     {
-        // dd($request);
         // Persist the flyer
-        Flyer::create($request->all());
+        $yourMom = new Flyer($request->all());
+
+        // dd($this->user);
+        // dd($yourMom);
+
+        $flyer = $this->user->publish( 
+            new Flyer($request->all()) 
+        );
 
         // Flash a success message
         flash()->success('Flyer Saved.', 'Your flyer has been created.');
 
         // Redirect to landing page
-        return redirect()->back(); //temporary
+        return redirect($flyer->path());
     }
 
     /**
@@ -112,11 +117,14 @@ class FlyersController extends Controller
         //
     }
 
-    public function addPhoto($zip, $street, ChangeFlyerRequest $request) {
+    public function addPhoto($zip, $street, AddPhotoRequest $request) {
 
-        $photo = $this->makePhoto($request->file('photo'));
+        $photo = Photo::fromFile($request->file('photo'));
 
         Flyer::locatedAt($zip, $street)->addPhoto($photo);
+
+        // $photo = $this->makePhoto($request->file('photo'));
+
 
     }
 
@@ -135,12 +143,5 @@ class FlyersController extends Controller
         }
 
     }
-
-    protected function makePhoto(UploadedFile $file) {
-
-        return Photo::named($file->getClientOriginalName())->move($file);
-
-    }
-
 
 }

@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Flyer extends Model
 {
 	protected $fillable = [
+		'user_id',
 		'street',
 		'city',
 		'state',
@@ -37,11 +38,15 @@ class Flyer extends Model
 	}
 
 	public function owner() {
-		return $this->belongsTo('App\User', 'user_id');
+		return $this->belongsTo('App\User', 'id', 'user_id');
 	}
 
 	public function ownedBy(User $user) 
 	{
 		return $this->user_id == $user->id;
+	}
+
+	public function path() {
+		return $this->zip . '/' . str_replace(' ', '-', $this->street);
 	}
 }

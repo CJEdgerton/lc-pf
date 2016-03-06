@@ -36,16 +36,18 @@
 
 	</div>
 
-	<hr>
+	@if($user && $user->owns($flyer))
+		<hr>
 
-	<form 
-		action="{{ route('store_photo_path', [$flyer->zip, $flyer->street]) }}"
-		method="POST"
-		id="addPhotosForm"
-		class="dropzone">
-		{{ csrf_field() }}
-		
-	</form>
+		<form 
+			action="{{ route('store_photo_path', [$flyer->zip, $flyer->street]) }}"
+			method="POST"
+			id="addPhotosForm"
+			class="dropzone">
+			{{ csrf_field() }}
+			
+		</form>
+	@endif
 
 @stop
 
