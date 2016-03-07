@@ -14,4 +14,10 @@ Route::group(['middleware' => ['web']], function () {
 			'uses' =>'PhotosController@store'
 		]
 	);
+
+	Route::delete(
+		'photos/{id}',
+		'PhotosController@destroy'
+	);
+	
 });
